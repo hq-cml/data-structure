@@ -226,3 +226,66 @@ func main() {
    fmt.Println(t.InOrderNoRecursion())
    fmt.Println(t.PostOrderNoRecursion())
 }
+
+
+二叉树 转成 左孩子右兄弟树
+2013年05月05日 ⁄ 综合 ⁄ 共 695字 ⁄ 字号 小 中 大 ⁄ 评论关闭
+Tree从底往上，指针倒换
+故用到stack，深度优先DFS
+               A
+        B            C
+   D       E     F    G
+转换成
+                  A
+            B
+     D            C
+         E     F
+                       G
+void ToChildSiblingTree(Node * tree)
+{
+	Node * p = tree;
+	stack<Node *> s;
+
+	while( p != NULL || !s.empty() )
+	{
+		while( p != NULL)
+		{
+			s.push(p);
+			p=p->left;
+		}
+		Node * tmp = s.top();
+		if(tmp->right == NULL)
+		{
+			s.pop();
+		}
+		else
+		{
+			p = tmp->right;
+			if(tmp->left == NULL)
+				tmp->left = p;
+			else
+				tmp->left->right =p;
+			tmp->right = NULL;//Not forget to set right to NULL
+ 		}
+	}
+}
+void convert(Node* root)
+{
+     if(root == NULL)
+             return;
+     if(root->right != NULL)
+     {
+                    if(root->left == NULL)
+                    {
+                                  root->left=root->right;
+                    }
+                    else
+                    {
+                                  convert(root->left);
+                                  root->left->right=root->right;
+                    }
+                    convert(root->right);
+                    root->right = NULL;
+     }
+     convert(root->left);
+}
