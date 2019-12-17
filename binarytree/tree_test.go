@@ -49,3 +49,28 @@ func TestNodeCnt(t *testing.T) {
     }
     t.Log("The node cnt is 7")
 }
+
+func TestTreeHeight(t *testing.T) {
+    tree := NewTree(1,
+        NewTree(2,
+            NewTree(4, nil, nil),
+            NewTree(5, nil, nil),
+        ),
+        NewTree(3,
+            NewTree(6, nil, nil),
+            NewTree(7, nil, nil),
+        ),
+    )
+
+    if 3 != tree.TreeHeight() {
+        t.Fatal("Wrong tree height")
+    }
+    t.Log("The tree height is 3")
+
+    tree.Right.Right.Right = NewTree(8, nil, nil)
+
+    if 4 != tree.TreeHeight() {
+        t.Fatal("Wrong tree height")
+    }
+    t.Log("The tree height is 4")
+}

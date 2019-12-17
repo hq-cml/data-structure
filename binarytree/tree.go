@@ -54,3 +54,18 @@ func(tree *TreeNode) NodeCnt() int {
 
     return 1 + tree.Left.NodeCnt() + tree.Right.NodeCnt()
 }
+
+//树高度
+func(tree *TreeNode) TreeHeight() int {
+    if tree == nil {
+        return 0
+    }
+
+    return 1 + func(tree1, tree2 *TreeNode) int {
+        if tree1.TreeHeight() > tree2.TreeHeight() {
+            return tree1.TreeHeight()
+        } else {
+            return tree2.TreeHeight()
+        }
+    }(tree.Left, tree.Right)
+}
