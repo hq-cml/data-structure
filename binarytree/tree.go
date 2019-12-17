@@ -45,3 +45,12 @@ func(tree *TreeNode) PostOrder() {
     tree.Right.PostOrder()
     fmt.Print(tree.Data, " ")
 }
+
+//节点个数
+func(tree *TreeNode) NodeCnt() int {
+    if tree == nil {
+        return 0
+    }
+
+    return 1 + tree.Left.NodeCnt() + tree.Right.NodeCnt()
+}

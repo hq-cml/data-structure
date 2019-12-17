@@ -31,3 +31,21 @@ func TestOrder(t *testing.T) {
     fmt.Println()
     tree.PostOrder()
 }
+
+func TestNodeCnt(t *testing.T) {
+    tree := NewTree(1,
+        NewTree(2,
+            NewTree(4, nil, nil),
+            NewTree(5, nil, nil),
+        ),
+        NewTree(3,
+            NewTree(6, nil, nil),
+            NewTree(7, nil, nil),
+        ),
+    )
+
+    if 7 != tree.NodeCnt() {
+        t.Fatal("Wrong node cnt")
+    }
+    t.Log("The node cnt is 7")
+}
