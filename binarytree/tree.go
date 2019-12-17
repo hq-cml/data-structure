@@ -25,3 +25,23 @@ func(tree *TreeNode) PreOrder() {
     tree.Left.PreOrder()
     tree.Right.PreOrder()
 }
+
+//递归，中遍历
+func(tree *TreeNode) InOrder() {
+    if tree == nil {
+        return
+    }
+    tree.Left.InOrder()
+    fmt.Print(tree.Data, " ")
+    tree.Right.InOrder()
+}
+
+//递归，后遍历
+func(tree *TreeNode) PostOrder() {
+    if tree == nil {
+        return
+    }
+    tree.Left.PostOrder()
+    tree.Right.PostOrder()
+    fmt.Print(tree.Data, " ")
+}

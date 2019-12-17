@@ -1,6 +1,9 @@
 package binarytree
 
-import "testing"
+import (
+    "fmt"
+    "testing"
+)
 
 /*
  *        1
@@ -8,8 +11,10 @@ import "testing"
  *   4   5  6  7
  *
  * 前序： 1 2 4 5 3 6 7
+ * 中：   4 2 5 1 6 3 7
+ * 后：   4 5 2 6 7 3 1
  */
-func TestPreOrder(t *testing.T) {
+func TestOrder(t *testing.T) {
     tree := NewTree(1,
         NewTree(2,
             NewTree(4, nil, nil),
@@ -21,4 +26,8 @@ func TestPreOrder(t *testing.T) {
         ),
     )
     tree.PreOrder()
+    fmt.Println()
+    tree.InOrder()
+    fmt.Println()
+    tree.PostOrder()
 }
