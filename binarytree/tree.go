@@ -1,6 +1,9 @@
 package binarytree
 
-import "fmt"
+import (
+    "fmt"
+    "github.com/hq-cml/data-structure/stack"
+)
 
 type TreeNode struct {
     Data interface{}
@@ -68,4 +71,27 @@ func(tree *TreeNode) TreeHeight() int {
             return tree2.TreeHeight()
         }
     }(tree.Left, tree.Right)
+}
+/*
+ *        1
+ *     2     3
+ *   4   5  6  7
+ */
+func(tree *TreeNode) PreOrderNoRecursion() {
+    var myStack stack.Stack
+    p := tree
+    for p != nil || !myStack.IsEmpty() {
+        for p != nil {
+            fmt.Print(p.Data, " ")
+            myStack.Push(p)
+            p = p.Left
+        }
+        tmpNode, ok := myStack.Pop()
+        if ok {
+            tmp, _ := tmpNode.(*TreeNode)
+            if tmp.Right != nil {
+                p = tmp.Right
+            }
+        }
+    }
 }
