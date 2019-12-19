@@ -72,11 +72,8 @@ func(tree *TreeNode) TreeHeight() int {
         }
     }(tree.Left, tree.Right)
 }
-/*
- *        1
- *     2     3
- *   4   5  6  7
- */
+
+//非递归，前序遍历
 func(tree *TreeNode) PreOrderNoRecursion() {
     var myStack stack.Stack
     p := tree
@@ -96,6 +93,7 @@ func(tree *TreeNode) PreOrderNoRecursion() {
     }
 }
 
+//非递归，中序遍历
 func(tree *TreeNode) InOrderNoRecursion() {
     var myStack stack.Stack
     p := tree
@@ -115,6 +113,31 @@ func(tree *TreeNode) InOrderNoRecursion() {
     }
 }
 
+//非递归，后序遍历
+//主要是利用了一个栈顶元素获取但不出栈的特性
+func(tree *TreeNode) PostOrderNoRecursion() {
+    var myStack stack.Stack
+    p := tree
+    var preNode *TreeNode
+    for p != nil || !myStack.IsEmpty() {
+        for p != nil {
+            myStack.Push(p)
+            p = p.Left
+        }
+        tmpNode, ok := myStack.Top() //只是获取栈顶元素，不出栈
+
+        if ok {
+            tmp, _ := tmpNode.(*TreeNode)
+            if tmp.Right == nil || tmp.Right == preNode { //如果没有右孩子或右孩子已经访问过了，出栈
+                fmt.Print(tmp.Data, " ")
+                preNode = tmp
+                myStack.Pop() //扔出元素
+            } else {
+                p = tmp.Right
+            }
+        }
+    }
+}
 
 
 

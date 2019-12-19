@@ -201,7 +201,9 @@ func (bt *BinaryTree) PostOrderNoRecursion() []interface{} {
       v   := stack.Back()
       top := v.Value.(*BinaryTree)
 
-      if (top.Left == nil && top.Right == nil) || (top.Right == nil && preVisited == top.Left) || preVisited == top.Right{
+      if (top.Left == nil && top.Right == nil)
+        || (top.Right == nil && preVisited == top.Left)
+        || preVisited == top.Right{
          res = append(res, top.Data)//visit
          preVisited = top
          stack.Remove(v)

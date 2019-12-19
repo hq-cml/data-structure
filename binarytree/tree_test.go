@@ -104,3 +104,18 @@ func TestInOrderNoRecursion(t *testing.T) {
     tree.InOrderNoRecursion()
     fmt.Println()
 }
+
+func TestInOrderPostRecursion(t *testing.T) {
+    tree := NewTree(1,
+        NewTree(2,
+            NewTree(4, nil, nil),
+            NewTree(5, nil, nil),
+        ),
+        NewTree(3,
+            NewTree(6, nil, nil),
+            NewTree(7, nil, nil),
+        ),
+    )
+    tree.PostOrderNoRecursion()
+    fmt.Println()
+}
