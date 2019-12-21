@@ -139,7 +139,51 @@ func(tree *TreeNode) PostOrderNoRecursion() {
     }
 }
 
+//兄弟孩子表示法
+/*
+ *        1
+ *     2     3
+ *   4   5  6  7
+ *
+ * 前序： 1 2 4 5 3 6 7
+ * 中：   4 2 5 1 6 3 7
+ * 后：   4 5 2 6 7 3 1
+ *
+ * 处理后：
+ *         1
+ *        2
+ *     4    3
+ *      5  6  7
+ *
+ * 前序： 1 2 4 5 3 6 7
+ * 中：   4 5 2 6 7 3 1
+ * 后：   5 4 7 6 3 2 1
+ */
+//非递归利用栈
+func(tree *TreeNode)Change2ChildNoRecursion() {
+    var myStack stack.Stack
+    p := tree
 
+    for p != nil || !myStack.IsEmpty() {
+        for p != nil {
+            myStack.Push(p)
+            p = p.Left
+        }
+        tmpNode, _ := myStack.Top() //只是获取栈顶元素，不出栈
+        tmp, _ := tmpNode.(*TreeNode)
+        if tmp.Right == nil {
+            myStack.Pop() //扔出元素
+        } else {
+            p = tmp.Right
+            if tmp.Left == nil {
+                tmp.Left = p
+            } else {
+                tmp.Left.Right = p
+            }
+            tmp.Right = nil   //Not forget to set right to NULL
+        }
+    }
+}
 
 
 

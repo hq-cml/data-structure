@@ -119,3 +119,22 @@ func TestInOrderPostRecursion(t *testing.T) {
     tree.PostOrderNoRecursion()
     fmt.Println()
 }
+
+func TestChange2Child(t *testing.T) {
+    tree := NewTree(1,
+        NewTree(2,
+            NewTree(4, nil, nil),
+            NewTree(5, nil, nil),
+        ),
+        NewTree(3,
+            NewTree(6, nil, nil),
+            NewTree(7, nil, nil),
+        ),
+    )
+    tree.change2Child()
+    tree.PreOrder()
+    fmt.Println()
+    tree.InOrder()
+    fmt.Println()
+    tree.PostOrder()
+}

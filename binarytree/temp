@@ -236,7 +236,7 @@ Tree从底往上，指针倒换
 故用到stack，深度优先DFS
                A
         B            C
-   D       E     F    G
+   D       E     F       G
 转换成
                   A
             B
