@@ -131,7 +131,26 @@ func TestChange2Child(t *testing.T) {
             NewTree(7, nil, nil),
         ),
     )
-    tree.change2Child()
+    tree.Change2Child()
+    tree.PreOrder()
+    fmt.Println()
+    tree.InOrder()
+    fmt.Println()
+    tree.PostOrder()
+}
+
+func TestChange2ChildNoRecursion(t *testing.T) {
+    tree := NewTree(1,
+        NewTree(2,
+            NewTree(4, nil, nil),
+            NewTree(5, nil, nil),
+        ),
+        NewTree(3,
+            NewTree(6, nil, nil),
+            NewTree(7, nil, nil),
+        ),
+    )
+    tree.Change2ChildNoRecursion()
     tree.PreOrder()
     fmt.Println()
     tree.InOrder()
