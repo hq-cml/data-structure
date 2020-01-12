@@ -185,6 +185,26 @@ func(tree *TreeNode)Change2ChildNoRecursion() {
     }
 }
 
+//递归
+func(tree *TreeNode)Change2Child() {
+    if tree == nil {
+        return
+    }
+
+    if tree.Right != nil {
+        if tree.Left == nil {
+            tree.Left = tree.Right
+        } else {
+            tree.Left.Change2Child()
+            tree.Left.Right = tree.Right
+        }
+        tree.Right.Change2Child()
+        tree.Right = nil
+    } else {
+        tree.Left.Change2Child()
+    }
+}
+
 
 
 
