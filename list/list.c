@@ -38,6 +38,28 @@ void foreach(node *head) {
     }
     printf("\n");
 }
+
+//翻转
+node* reverse(node *head) {
+    if (!head || !head->next) {
+        return head;
+    }
+
+    node *p1 = head;
+    node *p2 = head->next;
+    node *p3;
+    while(p2 != NULL) {
+        p3 = p2->next;
+        p2->next = p1;
+        p1 = p2;
+        p2 = p3;
+    }
+
+    head->next = NULL;
+    head = p1;
+    return head;
+}
+
 int main() {
     node *head = insert(NULL, 1);
     head = insert(head, 2);
@@ -45,8 +67,8 @@ int main() {
     head = insert(head, 4);
     foreach(head);
 
-    //head = reverse(head);
-    //foreach(head);
+    head = reverse(head);
+    foreach(head);
 
     //head = doubleSwap(head);
     //foreach(head);
