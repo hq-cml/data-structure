@@ -60,16 +60,49 @@ node* reverse(node *head) {
     return head;
 }
 
+//奇偶交换
+node* doubleSwap(node *head) {
+    if (!head || !head->next) {
+        return head;
+    }
+
+    node *p1 = head;
+    node *p2 = head->next;
+    node *p3 = NULL;
+    node *p4 = NULL;
+    head = p2;
+    while(p1 != NULL && p2 != NULL) {
+        p3 = p2->next;
+        p2->next = p1;
+        p1->next = p3;
+        if (p4 != NULL) {
+            p4->next = p2;
+        }
+
+        if (p3 != NULL && p3->next != NULL) {
+            p4 = p1;
+            p1 = p3;
+            p2 = p3->next;
+        } else {
+            p1 = p2 = NULL;
+        }
+    }
+
+    return head;
+}
+
 int main() {
     node *head = insert(NULL, 1);
     head = insert(head, 2);
     head = insert(head, 3);
     head = insert(head, 4);
+    head = insert(head, 5);
+    head = insert(head, 6);
     foreach(head);
 
-    head = reverse(head);
-    foreach(head);
-
-    //head = doubleSwap(head);
+    //head = reverse(head);
     //foreach(head);
+
+    head = doubleSwap(head);
+    foreach(head);
 }
