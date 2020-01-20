@@ -91,8 +91,44 @@ node* doubleSwap(node *head) {
     return head;
 }
 
+//倒数第n个节点
+node *findBackNode(node *head, int n) {
+    if(!head) {
+        printf("HEAD NULL\n");
+        return NULL;
+    }
+
+    if(n<=0) {
+        printf("Invalid N!\n");
+        return NULL;
+    }
+
+    node *p = head;
+    node *q = head;
+    int m = n-1;
+    while(p && m>0) {
+        p = p->next;
+        m --;
+    }
+
+    if (p != NULL) {
+        while(p && p->next) {
+            q = q->next;
+            p = p->next;
+        }
+        printf("The back [%d] is %d!\n", n, q->data);
+        return q;
+    } else {
+        printf("Invalid N!\n");
+        return NULL;
+    }
+}
+
 int main() {
     node *head = insert(NULL, 1);
+    node *p;
+    int n;
+
     head = insert(head, 2);
     head = insert(head, 3);
     head = insert(head, 4);
@@ -103,6 +139,12 @@ int main() {
     //head = reverse(head);
     //foreach(head);
 
-    head = doubleSwap(head);
-    foreach(head);
+    //head = doubleSwap(head);
+    //foreach(head);
+
+    findBackNode(head, 1);
+    findBackNode(head, 2);
+    findBackNode(head, 6);
+    findBackNode(head, 7);
+
 }
