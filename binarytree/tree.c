@@ -58,7 +58,6 @@ node *BuildTree(int *preOrder, int *inOrder, int len) {
     for(i=0; i<len; i++) {
         if(inOrder[i] == preOrder[0]) {
             idx = i;
-            printf("A------%d, %d\n", idx, preOrder[0]);
             break;
         }
     }
@@ -80,6 +79,30 @@ node *BuildTree(int *preOrder, int *inOrder, int len) {
     }
 
     return root;
+}
+
+node *FindNext(node *P) {
+    node *t;
+    if(!p->right) {
+        t = p;
+        while(t->left) {
+            t = t->left;
+        }
+        return t;
+    }
+
+    if (p->parent->left == p) {
+        return p->parent;
+    }
+
+    t = p->parent;
+    while(t) {
+        if(t->parent != NULL && t->parent->left == t) {
+            return t->parent;
+        }
+        t = t->parent;
+    }
+    return t;
 }
 
 int main() {
