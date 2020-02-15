@@ -124,6 +124,15 @@ node *findBackNode(node *head, int n) {
     }
 }
 
+//翻转
+void RevertPrint(node *head) {
+    if (head == NULL) {
+        return;
+    }
+    RevertPrint(head->next);
+    printf("%d ", head->data);
+}
+
 int main() {
     node *head = insert(NULL, 1);
     node *p;
@@ -142,9 +151,9 @@ int main() {
     //head = doubleSwap(head);
     //foreach(head);
 
-    findBackNode(head, 1);
-    findBackNode(head, 2);
-    findBackNode(head, 6);
-    findBackNode(head, 7);
-
+//    findBackNode(head, 1);
+//    findBackNode(head, 2);
+//    findBackNode(head, 6);
+//    findBackNode(head, 7);
+    RevertPrint(head);
 }
