@@ -91,6 +91,11 @@ node *FindNext(node *P) {
         return t;
     }
 
+    //根节点，且无右子树
+    if (p->parent == NULL) {
+        return NULL;
+    }
+
     if (p->parent->left == p) {
         return p->parent;
     }

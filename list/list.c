@@ -124,7 +124,7 @@ node *findBackNode(node *head, int n) {
     }
 }
 
-//翻转
+//链表倒着打印
 void RevertPrint(node *head) {
     if (head == NULL) {
         return;
