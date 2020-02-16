@@ -42,5 +42,7 @@ int maxProductAfterCutting(int length)
 
 int main() {
     printf("%d\n", maxProductAfterCutting(2));
+    printf("%d\n", maxProductAfterCutting(3));
     printf("%d\n", maxProductAfterCutting(4));
+    printf("%d\n", maxProductAfterCutting(8));
 }
