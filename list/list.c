@@ -133,18 +133,52 @@ void RevertPrint(node *head) {
     printf("%d ", head->data);
 }
 
+//O(1)复杂度删除链表节点
+node *DeleteNodeO1(node *head, node *del) {
+    if (head == NULL || del == NULL) {
+        return head;
+    }
+
+    node *tmp;
+    node *pre;
+    if(del->next != NULL) {
+        del->data = del->next->data;
+        tmp = del->next;
+        del->next = del->next->next;
+        free(tmp);
+    } else {
+        //常规删除
+        if(head == del) { //第一个结点
+            tmp = head;
+            head = head->next;
+            free(tmp);
+        } else {    //最后一个节点
+            pre = head;
+            while(pre->next != NULL) {
+                pre = pre->next;
+            }
+             tmp = pre;
+             pre = pre->next;
+             free(tmp);
+        }
+    }
+    return head;
+}
+
 int main() {
     node *head = insert(NULL, 1);
-    node *p;
+    node *p = head;
     int n;
 
-    head = insert(head, 2);
-    head = insert(head, 3);
-    head = insert(head, 4);
-    head = insert(head, 5);
-    head = insert(head, 6);
+//    head = insert(head, 2);
+//    head = insert(head, 3);
+//    head = insert(head, 4);
+//    head = insert(head, 5);
+//    head = insert(head, 6);
     foreach(head);
 
+    head = DeleteNodeO1(head, p);
+    foreach(head);
     //head = reverse(head);
     //foreach(head);
 
@@ -155,5 +189,5 @@ int main() {
 //    findBackNode(head, 2);
 //    findBackNode(head, 6);
 //    findBackNode(head, 7);
-    RevertPrint(head);
+    //RevertPrint(head);
 }
