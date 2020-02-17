@@ -157,10 +157,36 @@ node *DeleteNodeO1(node *head, node *del) {
             while(pre->next != NULL) {
                 pre = pre->next;
             }
-             tmp = pre;
+
              pre = pre->next;
              free(tmp);
         }
+    }
+    return head;
+}
+
+//删除重复节点
+node *DeleteDuplicateNode(node *head) {
+    if (head == NULL || head->next == NULL) {
+        return head;
+    }
+
+    node *tmp;
+    node *first = head;
+    node *curr = first->next;
+    while(first) {
+        while(curr!=NULL && curr->data == first->data) {
+            tmp = curr;
+            first->next = curr->next;
+            curr = curr->next;
+            printf("Del %d\n", tmp->data);
+            free(tmp);
+        }
+        if (curr == NULL) {
+            break;
+        }
+        first = curr;
+        curr = curr->next;
     }
     return head;
 }
@@ -170,14 +196,17 @@ int main() {
     node *p = head;
     int n;
 
-//    head = insert(head, 2);
-//    head = insert(head, 3);
-//    head = insert(head, 4);
-//    head = insert(head, 5);
-//    head = insert(head, 6);
+    head = insert(head, 2);
+    head = insert(head, 3);
+    head = insert(head, 3);
+    head = insert(head, 4);
+    head = insert(head, 5);
+    head = insert(head, 5);
+    head = insert(head, 5);
+    head = insert(head, 6);
     foreach(head);
 
-    head = DeleteNodeO1(head, p);
+    head = DeleteDuplicateNode(head);
     foreach(head);
     //head = reverse(head);
     //foreach(head);
