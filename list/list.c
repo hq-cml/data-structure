@@ -266,29 +266,71 @@ node* FindRingEntry(node *head) {
     return p1;
 }
 
+//合并有序链表
+node *MergeSortedList(node *head1, node *head2) {
+    if (head1==NULL) return head2;
+    if (head2==NULL) return head1;
+
+    node *head = NULL;
+    node *p1 = head1;
+    node *p2 = head2;
+    if(p1->data <= p2->data) { //先将头固定下来
+        head = p1;
+        p1 = p1->next;
+    } else {
+        head = p2;
+        p2 = p2->next;
+    }
+
+    //合并
+    node *p = head;
+    while(p1 && p2) {
+        if (p1->data <= p2->data) {
+            p->next = p1;
+            p = p->next;
+            p1 = p1->next;
+        } else {
+            p->next = p2;
+            p = p->next;
+            p2 = p2->next;
+        }
+    }
+
+    //扫尾
+    if(p1) {
+        p->next = p1;
+    } else {
+        p->next = p2;
+    }
+
+    return head;
+}
+
 int main() {
     //构造环
-    node *head = insert(NULL, 1);
-    node *p1, *p2;
-    int n;
-    head = insert(head, 2);
-    p1 = insertTmp(head, 3);
-    head = insert(head, 4);
-    head = insert(head, 5);
-    p2 = insertTmp(head, 6);
-    p2->next = p1;
+//    node *head = insert(NULL, 1);
+//    node *p1, *p2;
+//    int n;
+//    head = insert(head, 2);
+//    p1 = insertTmp(head, 3);
+//    head = insert(head, 4);
+//    head = insert(head, 5);
+//    p2 = insertTmp(head, 6);
+//    p2->next = p1;
+//
+//    printf("%d\n", CheckLIstRing(head));
+//    printf("%d\n", FindRingEntry(head)->data);
+    node *head1 = insert(NULL, 1);
+    head1 = insert(head1, 3);
+    head1 = insert(head1, 5);
+    head1 = insert(head1, 7);
 
-    printf("%d\n", CheckLIstRing(head));
-    printf("%d\n", FindRingEntry(head)->data);
-    //head = reverse(head);
-    //foreach(head);
+    node *head2 = insert(NULL, 2);
+        head2 = insert(head2, 4);
+        head2 = insert(head2, 6);
+        head2 = insert(head2, 8);
+        head2 = insert(head2, 9);
+        head2 = insert(head2, 10);
 
-    //head = doubleSwap(head);
-    //foreach(head);
-
-//    findBackNode(head, 1);
-//    findBackNode(head, 2);
-//    findBackNode(head, 6);
-//    findBackNode(head, 7);
-    //RevertPrint(head);
+     foreach(MergeSortedList(head1, head2));
 }
