@@ -205,9 +205,29 @@ func(tree *TreeNode)Change2Child() {
     }
 }
 
+type SimpleList struct {
+    list []*TreeNode
+}
 
+func NewSimpleList() *SimpleList{
+    return &SimpleList{list:[]*TreeNode{}}
+}
 
+func (s *SimpleList)Len() int{
+    return len(s.list)
+}
 
+func (s *SimpleList)Put(node *TreeNode) {
+    s.list = append(s.list, node)
+}
 
+func (s *SimpleList)Get() *TreeNode {
+    if s.Len() > 0 {
+        t := s.list[0]
+        s.list = s.list[1:]
+        return t
+    }
+    return nil
+}
 
 

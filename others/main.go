@@ -2,6 +2,7 @@ package main
 
 import (
     "fmt"
+    "github.com/hq-cml/data-structure/binarytree"
     stack2 "github.com/hq-cml/data-structure/stack"
 )
 
@@ -57,8 +58,65 @@ func checkValidSequence(a []int, b []int) bool {
     }
 }
 
+//按行打印二叉树
+func PrintTree1(root *binarytree.TreeNode) {
+    if root == nil {
+        return
+    }
+    list := binarytree.NewSimpleList()
+    list.Put(root)
+
+    for list.Len() > 0 {
+        node := list.Get()
+        fmt.Print(node.Data, " ")
+        if node.Left != nil {
+            list.Put(node.Left)
+        }
+        if node.Right != nil {
+            list.Put(node.Right)
+        }
+    }
+}
+
+//按行打印二叉树
+func PrintTree2(root *binarytree.TreeNode) {
+    if root == nil {
+        return
+    }
+    list := binarytree.NewSimpleList()
+    list.Put(root)
+    currentLevelCnt := 1;
+    nextLevelCnt := 0;
+    for list.Len() > 0 {
+        node := list.Get()
+        fmt.Print(node.Data, " ")
+        currentLevelCnt --
+        if node.Left != nil {
+            list.Put(node.Left)
+            nextLevelCnt ++
+        }
+        if node.Right != nil {
+            list.Put(node.Right)
+            nextLevelCnt ++
+        }
+        if currentLevelCnt == 0 {
+            currentLevelCnt = nextLevelCnt
+            nextLevelCnt = 0
+            fmt.Println()
+        }
+    }
+}
+
 func main() {
-    fmt.Println(checkValidSequence([]int{1,2,3,4,5}, []int{4, 5, 3, 2, 1}))
-    fmt.Println(checkValidSequence([]int{1,2,3,4,5}, []int{4, 3, 5, 1, 2}))
-    fmt.Println(checkValidSequence([]int{1,2,3,4,5}, []int{1, 2, 3, 4, 5}))
+    tree := binarytree.NewTree(1,
+        binarytree.NewTree(2,
+            binarytree.NewTree(4, nil, nil),
+            binarytree.NewTree(5, nil, nil),
+        ),
+        binarytree.NewTree(3,
+            binarytree.NewTree(6, nil, nil),
+            binarytree.NewTree(7, nil, nil),
+        ),
+    )
+    PrintTree2(tree)
 }
