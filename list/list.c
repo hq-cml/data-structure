@@ -27,6 +27,28 @@ node *insert(node *head, int data) {
     return head;
 }
 
+//特殊的插入，用于构造环
+node *insertTmp(node *head, int data) {
+    node *p = (node *)malloc(sizeof(node));
+    if (!p) {
+        return head;
+    }
+    p->data = data;
+    p->next = NULL;
+
+    if (!head) {
+        return p;
+    }
+
+    node *p1 = head;
+    while(p1->next) {
+        p1 = p1->next;
+    }
+
+    p1->next = p;
+    return p;      //返回的是实际的新增的那个节点
+}
+
 void foreach(node *head) {
     if (!head) {
         printf("Empty!");
@@ -191,23 +213,52 @@ node *DeleteDuplicateNode(node *head) {
     return head;
 }
 
-int main() {
-    node *head = insert(NULL, 1);
-    node *p = head;
-    int n;
+//判断链表是否存在环，如果存在，返回环长度
+int CheckLIstRing(node *head) {
+    if (head == NULL || head->next == NULL) {
+        return 0;
+    }
 
+    node *p1, *p2;
+    p1 = p2 = head;
+    if (p2->next->next == p1) {
+        return 2; //两个节点，自成环的特例
+    }
+    int find = 0;
+    while(p2->next && p2->next->next) {
+        p2 = p2->next->next;
+        p1 = p1->next;
+        if(p2 == p1) {
+            find = 1;
+            break;
+        }
+    }
+    if (!find) {
+        return 0;//不存在环
+    }
+
+    int cnt = 0;
+    do {
+        cnt ++;
+        p2 = p2->next->next;
+        p1 = p1->next;
+    } while(p1 != p2);
+    return cnt;
+}
+
+int main() {
+    //构造环
+    node *head = insert(NULL, 1);
+    node *p1, *p2;
+    int n;
     head = insert(head, 2);
-    head = insert(head, 3);
-    head = insert(head, 3);
+    p1 = insertTmp(head, 3);
     head = insert(head, 4);
     head = insert(head, 5);
-    head = insert(head, 5);
-    head = insert(head, 5);
-    head = insert(head, 6);
-    foreach(head);
+    p2 = insertTmp(head, 6);
+    p2->next = p1;
 
-    head = DeleteDuplicateNode(head);
-    foreach(head);
+    printf("%d\n", CheckLIstRing(head));
     //head = reverse(head);
     //foreach(head);
 
