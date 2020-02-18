@@ -246,6 +246,26 @@ int CheckLIstRing(node *head) {
     return cnt;
 }
 
+//求链表存在环的话，环的入口
+node* FindRingEntry(node *head) {
+    int cnt = CheckLIstRing(head);
+    if (cnt == 0) {
+        return NULL;
+    }
+
+    int i;
+    node *p1, *p2;
+    p1 = p2 = head;
+    for(i=0; i<cnt; i++) {
+        p2 = p2->next;
+    }
+    while(p1 != p2) {
+        p1 = p1->next;
+        p2 = p2->next;
+    }
+    return p1;
+}
+
 int main() {
     //构造环
     node *head = insert(NULL, 1);
@@ -259,6 +279,7 @@ int main() {
     p2->next = p1;
 
     printf("%d\n", CheckLIstRing(head));
+    printf("%d\n", FindRingEntry(head)->data);
     //head = reverse(head);
     //foreach(head);
 
