@@ -2,6 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 
+void foreach(int a[], int len) {
+    int i = 0;
+    for(i=0; i<len; i++) printf("%d ", a[i]);
+    printf("\n");
+}
 //a[n]中，数字只会是1-n, 重复的数字
 int findDuplicate(unsigned int a[], unsigned int len) {
     int *p = (int*)malloc(sizeof(int) * (len+1));
@@ -85,22 +90,49 @@ int findDoubleArr(int *a, int rows, int cols, int n) {
     return 0;
 }
 
+//移动数组的成员位置，是的奇数全部位于偶数前面
+void SwapOddEvenNumber(int *a, int len) {
+    if (len <= 1) {
+        return;
+    }
+    int *p = a;
+    int *q = a + len - 1;
+    while(p < q) {
+        while((*p%2) == 1 && p < (a + len)) {
+            p ++;
+        }
+        while((*q%2) == 0 && q > 0 ){
+            q --;
+        }
+
+        if ( p < q) {
+            int t = *q;
+            *q = *p;
+            *p = t;
+        }
+    }
+}
+
 int main() {
+    int a[] = {1, 2, 3, 4, 5, 6, 7, 8};
+    SwapOddEvenNumber(a, 8);
+    foreach(a, 8);
+
 //    int a[] = {1, 2, 3, 4, 2, 3, 7};
 //    findDuplicate(a, 7);
 
-    int a[4][4] = {
-        {1, 2, 8, 9},
-        {2, 4, 9, 12},
-        {7, 8, 10, 13},
-        {8, 9, 11, 12},
-    };
+//    int a[4][4] = {
+//        {1, 2, 8, 9},
+//        {2, 4, 9, 12},
+//        {7, 8, 10, 13},
+//        {8, 9, 11, 12},
+//    };
 //    find2DimArr((int**)a, 4, 4, 1);
 //    find2DimArr((int**)a, 4, 4, 6);
 //    find2DimArr((int**)a, 4, 4, 7);
 //    find2DimArr((int**)a, 4, 4, 16);
-    findDoubleArr((int*)a, 4, 4, 1);
-    findDoubleArr((int*)a, 4, 4, 6);
-    findDoubleArr((int*)a, 4, 4, 7);
-    findDoubleArr((int*)a, 4, 4, 15);
+//    findDoubleArr((int*)a, 4, 4, 1);
+//    findDoubleArr((int*)a, 4, 4, 6);
+//    findDoubleArr((int*)a, 4, 4, 7);
+//    findDoubleArr((int*)a, 4, 4, 15);
 }
