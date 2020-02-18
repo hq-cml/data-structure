@@ -3,7 +3,10 @@ package stack
 /*
  * go test ./ -v
  */
-import "testing"
+import (
+    "fmt"
+    "testing"
+)
 
 func TestStackLen(t *testing.T) {
     var myStack Stack
@@ -75,4 +78,29 @@ func TestStackPop(t *testing.T) {
     } else {
         t.Errorf("Failed Stack.Pop, value is %d, len is %d", value, mStack.Len())
     }
+}
+
+func TestMinStack(t *testing.T) {
+    ms := NewMinStackO1()
+    ms.Push(3)
+    m ,_ := ms.Min()
+    fmt.Println("Min:",m)
+    ms.Push(4)
+    m ,_ = ms.Min()
+    fmt.Println("Min:",m)
+    ms.Push(2)
+    m ,_ = ms.Min()
+    fmt.Println("Min:",m)
+    ms.Push(1)
+    m ,_ = ms.Min()
+    fmt.Println("Min:",m)
+    ms.Pop()
+    m ,_ = ms.Min()
+    fmt.Println("Min:",m)
+    ms.Pop()
+    m ,_ = ms.Min()
+    fmt.Println("Min:",m)
+    ms.Push(0)
+    m ,_ = ms.Min()
+    fmt.Println("Min:",m)
 }
