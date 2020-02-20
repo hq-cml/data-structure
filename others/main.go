@@ -108,15 +108,12 @@ func PrintTree2(root *binarytree.TreeNode) {
 }
 
 func main() {
-    tree := binarytree.NewTree(1,
-        binarytree.NewTree(2,
+    tree := binarytree.NewTree(10,
+        binarytree.NewTree(5,
             binarytree.NewTree(4, nil, nil),
-            binarytree.NewTree(5, nil, nil),
-        ),
-        binarytree.NewTree(3,
-            binarytree.NewTree(6, nil, nil),
             binarytree.NewTree(7, nil, nil),
         ),
+        binarytree.NewTree(12,nil, nil),
     )
-    PrintTree2(tree)
+    tree.FindPathSum(22)
 }

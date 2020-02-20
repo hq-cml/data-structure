@@ -230,4 +230,25 @@ func (s *SimpleList)Get() *TreeNode {
     return nil
 }
 
+//路径和求值
+func(tree *TreeNode) FindPathSum(num int) {
+    s := []int{}
+    findPathSum(tree, 22, s)
+}
 
+func findPathSum(root *TreeNode, num int, s []int) {
+    if root == nil {
+        return
+    }
+    v, _ := root.Data.(int)
+    s = append(s, v)
+    sum := 0
+    for _,v := range s {
+        sum += v
+    }
+    if sum == num && root.Left == nil && root.Right == nil{
+        fmt.Println(s)
+    }
+    findPathSum(root.Left, num, s)
+    findPathSum(root.Right, num, s)
+}
