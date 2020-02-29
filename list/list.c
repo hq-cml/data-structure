@@ -330,6 +330,98 @@ node *MergeSort(node *head) {
     return Merge(MergeSort(head), MergeSort(p2));
 }
 
+node *NewNode(int data) {
+    node *p = (node *)malloc(sizeof(node));
+    p->data = data;
+    p->next = NULL;
+    return p;
+}
+
+//另类链表合并，实现类似于加法的操作
+//例如输入：head1 = [1,3,5,7] head2 = [2,4,6,8]
+//输出： head = [3, 7, 1, 6, 1]
+//例如输入：head1 = [1,3,5,7] head2 = [2,4,6,8,9]
+//输出： head = [3, 7, 1, 6, 0, 1]
+node *AddMerge(node *head1, node *head2){
+    if (head1 == NULL) {
+        return head2;
+    }
+
+    if (head2 == NULL) {
+        return head1;
+    }
+
+    node *head = NULL;
+    int flag = 0;
+    node *p1 = head1;
+    node *p2 = head2;
+    node *tail;
+    while(p1 && p2) {
+        int tmp = p1->data + p2->data;
+        if (flag == 1) {
+            tmp ++;
+        }
+        if (tmp>=10) {
+            flag = 1;
+            tmp -= 10;
+        } else {
+            flag = 0;
+        }
+        node *p = NewNode(tmp);
+        if(head == NULL) {
+            head = p;
+            tail = p;
+        } else {
+            tail->next = p;
+            tail = p;
+        }
+        p1 = p1->next;
+        p2 = p2->next;
+    }
+
+    if (p1 == NULL && p2 == NULL) {
+        if (flag == 1) {
+            node *p = NewNode(1);
+            tail->next = p;
+            tail = p;
+            flag = 0;
+        }
+    } else {
+        node *final = NULL;
+        if (p1 != NULL) {
+            final = p1;
+        } else {
+            final = p2;
+        }
+
+        while(final) {
+            int tmp = final->data;
+            if (flag == 1) {
+                tmp ++;
+            }
+            if (tmp>=10) {
+                flag = 1;
+                tmp -= 10;
+            } else {
+                flag = 0;
+            }
+            node *p = NewNode(tmp);
+            tail->next = p;
+            tail = p;
+            final = final->next;
+        }
+    }
+
+    //还有可能有最后一个进位
+    if (flag == 1) {
+        node *p = NewNode(1);
+        tail->next = p;
+        tail = p;
+    }
+
+    return head;
+}
+
 int main() {
     //构造环
 //    node *head = insert(NULL, 1);
@@ -344,13 +436,15 @@ int main() {
 //
 //    printf("%d\n", CheckLIstRing(head));
 //    printf("%d\n", FindRingEntry(head)->data);
-    node *head1 = insert(NULL, 8);
-    head1 = insert(head1, 5);
-    head1 = insert(head1, 1);
-    head1 = insert(head1, 4);
-    head1 = insert(head1, 7);
-    head1 = insert(head1, 6);
+    node *head1 = insert(NULL, 1);
     head1 = insert(head1, 3);
-    head1 = insert(head1, 2);
-    foreach(MergeSort(head1));
+    head1 = insert(head1, 5);
+    head1 = insert(head1, 7);
+
+    node *head2 = insert(NULL, 2);
+    head2 = insert(head2, 4);
+    head2 = insert(head2, 6);
+    head2 = insert(head2, 8);
+    head2 = insert(head2, 9);
+    foreach(AddMerge(head1, head2));
 }
