@@ -4,6 +4,7 @@ import (
     "fmt"
     "github.com/hq-cml/data-structure/binarytree"
     stack2 "github.com/hq-cml/data-structure/stack"
+    "reflect"
 )
 
 func checkValidSequence(a []int, b []int) bool {
@@ -107,13 +108,47 @@ func PrintTree2(root *binarytree.TreeNode) {
     }
 }
 
+//寻找最长不重复子串
+func FindMaxSubString(str string) (int, int) {
+    var maxCnt = 0;
+    var index = 0;
+    for idx:=0; idx < len(str); idx ++ {
+        cnt := 0;
+        m := map[string]struct{}{}
+        for _, c := range str[idx:] {
+            _, ok := m[string(c)]
+            if !ok {
+                m[string(c)] = struct{}{}
+                cnt ++
+            } else {
+                if cnt > maxCnt {
+                    maxCnt = cnt
+                    index = idx
+                    break
+                }
+            }
+        }
+        if cnt > maxCnt {
+            maxCnt = cnt
+            index = idx
+        }
+    }
+
+    return index, maxCnt
+}
+
+type A struct {
+    a int
+}
 func main() {
-    tree := binarytree.NewTree(10,
-        binarytree.NewTree(5,
-            binarytree.NewTree(4, nil, nil),
-            binarytree.NewTree(7, nil, nil),
-        ),
-        binarytree.NewTree(12,nil, nil),
-    )
-    tree.FindPathSum(22)
+    //fmt.Println(FindMaxSubString("aabc"));
+    str := "abc我d"
+    for k, v := range str {
+        fmt.Println(k, v, reflect.TypeOf(v))
+    }
+    fmt.Println()
+    str2 := []rune(str)
+    for k, v := range str2 {
+        fmt.Println(k, v, reflect.TypeOf(v))
+    }
 }
