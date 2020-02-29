@@ -309,6 +309,27 @@ node *Merge(node *head1, node *head2) {
     return head;
 }
 
+//链表的归并排序
+node *MergeSort(node *head) {
+    if (head == NULL || head->next == NULL) {
+        return head;
+    }
+    node *p1 = head;
+    node *p2 = head->next->next;
+
+    while(p1 && p2) {
+        p1 = p1->next;
+        p2 = p2->next;
+        if (p2) {
+            p2 = p2->next;
+        }
+    }
+    //截断成两根
+    p2 = p1->next;
+    p1->next = NULL;
+    return Merge(MergeSort(head), MergeSort(p2));
+}
+
 int main() {
     //构造环
 //    node *head = insert(NULL, 1);
@@ -323,17 +344,13 @@ int main() {
 //
 //    printf("%d\n", CheckLIstRing(head));
 //    printf("%d\n", FindRingEntry(head)->data);
-    node *head1 = insert(NULL, 1);
-    head1 = insert(head1, 3);
+    node *head1 = insert(NULL, 8);
     head1 = insert(head1, 5);
+    head1 = insert(head1, 1);
+    head1 = insert(head1, 4);
     head1 = insert(head1, 7);
-
-    node *head2 = insert(NULL, 2);
-        head2 = insert(head2, 4);
-        head2 = insert(head2, 6);
-        head2 = insert(head2, 8);
-        head2 = insert(head2, 9);
-        head2 = insert(head2, 10);
-
-     foreach(Merge(head1, head2));
+    head1 = insert(head1, 6);
+    head1 = insert(head1, 3);
+    head1 = insert(head1, 2);
+    foreach(MergeSort(head1));
 }
