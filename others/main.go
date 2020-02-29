@@ -1,10 +1,10 @@
 package main
 
 import (
+    "errors"
     "fmt"
     "github.com/hq-cml/data-structure/binarytree"
     stack2 "github.com/hq-cml/data-structure/stack"
-    "reflect"
 )
 
 func checkValidSequence(a []int, b []int) bool {
@@ -137,18 +137,74 @@ func FindMaxSubString(str string) (int, int) {
     return index, maxCnt
 }
 
+//寻找最长不重复子串（滑动窗口）
+func FindMaxSubString2(str string) (int, int) {
+    var maxCnt = 0;
+    var index = 0;
+    length := len(str)
+    i, j := 0, 0
+    m := map[byte]struct{}{}
+    for i < length && j < length {
+        c := str[i]
+        _, ok := m[c]
+        if !ok {
+            //窗口右边界右移
+            i++
+            m[c] = struct{}{}
+            if maxCnt < (i-j) {
+                maxCnt = (i - j)
+                index = j
+            }
+        } else {
+            //窗口左边界右移
+            delete(m, str[j])
+            j++
+        }
+    }
+
+    return index, maxCnt
+}
+
+func FindMin(arr []int) (int, error) {
+    if arr == nil {
+        return 0, errors.New("Invalid input")
+    }
+
+    length := len(arr)
+    if length == 1 {
+        return arr[0], nil
+    }
+    if length == 2 {
+        if arr[0] > arr[1] {
+            return arr[1], nil
+        }else {
+            return arr[0], nil
+        }
+    }
+
+    if arr[0] <= arr[length-1] {
+        return arr[0], nil
+    }
+
+    mid := length/2
+
+    if (arr[0] <= arr[mid] && arr[mid+1] <= arr[length-1]) {
+        return arr[mid+1], nil
+    }
+
+    if (arr[0] > arr[mid]) {
+        return FindMin(arr[:mid+1])
+    }
+
+    if (arr[mid+1] > arr[length-1]) {
+        return FindMin(arr[mid+1:])
+    }
+    return 0, errors.New("Somthig wrong")
+}
+
 type A struct {
     a int
 }
 func main() {
-    //fmt.Println(FindMaxSubString("aabc"));
-    str := "abc我d"
-    for k, v := range str {
-        fmt.Println(k, v, reflect.TypeOf(v))
-    }
-    fmt.Println()
-    str2 := []rune(str)
-    for k, v := range str2 {
-        fmt.Println(k, v, reflect.TypeOf(v))
-    }
+    fmt.Println(FindMaxSubString2("aaa"))
 }
