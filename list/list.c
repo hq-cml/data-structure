@@ -267,31 +267,34 @@ node* FindRingEntry(node *head) {
 }
 
 //合并有序链表
-node *MergeSortedList(node *head1, node *head2) {
+node *Merge(node *head1, node *head2) {
     if (head1==NULL) return head2;
     if (head2==NULL) return head1;
 
     node *head = NULL;
     node *p1 = head1;
     node *p2 = head2;
-    if(p1->data <= p2->data) { //先将头固定下来
-        head = p1;
-        p1 = p1->next;
-    } else {
-        head = p2;
-        p2 = p2->next;
-    }
+    node *p = NULL;
 
     //合并
-    node *p = head;
     while(p1 && p2) {
         if (p1->data <= p2->data) {
-            p->next = p1;
-            p = p->next;
+            if (head == NULL) {
+                head = p1;
+                p = p1;
+            } else {
+                p->next = p1;
+                p = p->next;
+            }
             p1 = p1->next;
         } else {
-            p->next = p2;
-            p = p->next;
+            if (head == NULL) {
+                head = p2;
+                p = p2;
+            } else {
+                p->next = p2;
+                p = p->next;
+            }
             p2 = p2->next;
         }
     }
@@ -299,7 +302,7 @@ node *MergeSortedList(node *head1, node *head2) {
     //扫尾
     if(p1) {
         p->next = p1;
-    } else {
+    } else if(p2) {
         p->next = p2;
     }
 
@@ -332,5 +335,5 @@ int main() {
         head2 = insert(head2, 9);
         head2 = insert(head2, 10);
 
-     foreach(MergeSortedList(head1, head2));
+     foreach(Merge(head1, head2));
 }
