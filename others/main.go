@@ -7,7 +7,7 @@ import (
     stack2 "github.com/hq-cml/data-structure/stack"
 )
 
-func checkValidSequence(a []int, b []int) bool {
+func checkValidSequence(a []byte, b []byte) bool {
     if len(a) != len(b) {
         return false
     }
@@ -205,6 +205,53 @@ func FindMin(arr []int) (int, error) {
 type A struct {
     a int
 }
+func (a *A) hello() {
+    fmt.Println("Hello world!")
+}
+
+type B struct {
+    A
+}
+
+
+func Filter(str string) string {
+    mystack := stack2.SimpleStack{};
+    for i, _ := range str {
+        if str[i] == 'b' {
+            continue
+        }
+        if mystack.IsEmpty() {
+           mystack.Push(str[i])
+           continue
+        }
+        t, _ := mystack.Top()
+        if t == 'a' && str[i] == 'c' {
+            mystack.Pop()
+        } else {
+            mystack.Push(str[i])
+        }
+    }
+
+    if mystack.IsEmpty() {
+        return ""
+    } else {
+        //将栈中元素，倒过来返回，利用另一个辅助栈
+        tmpStack := stack2.SimpleStack{}
+        for !mystack.IsEmpty() {
+            c , _ := mystack.Pop()
+            tmpStack.Push(c)
+        }
+        s := []byte{}
+        for !tmpStack.IsEmpty() {
+            c , _ := tmpStack.Pop()
+            s = append(s, c)
+        }
+        return string(s)
+    }
+}
+
 func main() {
-    fmt.Println(FindMaxSubString2("aaa"))
+    fmt.Println(Filter("abc"))
+    fmt.Println(Filter("aabccx"))
+    fmt.Println(Filter("acbdc"))
 }
