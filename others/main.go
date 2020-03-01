@@ -251,7 +251,23 @@ func Filter(str string) string {
 }
 
 func main() {
-    fmt.Println(Filter("abc"))
-    fmt.Println(Filter("aabccx"))
-    fmt.Println(Filter("acbdc"))
+    tree := binarytree.NewTree(1,
+        binarytree.NewTree(2,
+            binarytree.NewTree(4, nil, nil),
+            binarytree.NewTree(5, nil, nil),
+        ),
+        binarytree.NewTree(3,
+            binarytree.NewTree(6, nil, nil),
+            binarytree.NewTree(7, nil, nil),
+        ),
+    )
+    path := []int{}
+    fmt.Println(tree.FindPath(5, path))
+    fmt.Println(tree.FindPath(6, path))
+    fmt.Println(tree.FindPath(7, path))
+    fmt.Println(tree.FindPath(1, path))
+    fmt.Println()
+    fmt.Println(tree.FindCommonParent(7, 6))
+    fmt.Println(tree.FindCommonParent(7, 1))
+    fmt.Println(tree.FindCommonParent(6, 1))
 }

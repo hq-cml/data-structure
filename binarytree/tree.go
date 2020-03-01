@@ -252,3 +252,52 @@ func findPathSum(root *TreeNode, num int, s []int) {
     findPathSum(root.Left, num, s)
     findPathSum(root.Right, num, s)
 }
+
+//求指定值的路径
+func(tree *TreeNode) FindPath(num int, path []int) ([]int, bool) {
+    if tree == nil {
+        return path, false
+    }
+    data, _ := tree.Data.(int)
+    path = append(path, data)
+    //if data == num && tree.Left == nil && tree.Right == nil {
+    if data == num {
+        return path, true
+    }
+
+    ret, ok := tree.Left.FindPath(num, path)
+    if ok {
+        return ret, true
+    }
+    ret, ok = tree.Right.FindPath(num, path)
+    if ok {
+        return ret, true
+    }
+
+    return path, false
+}
+
+//求公共节点
+func(tree *TreeNode) FindCommonParent(num1, num2 int) (int, bool) {
+    path1 := []int{}
+    path2 := []int{}
+
+    path1, ok1 := tree.FindPath(num1, path1)
+    path2, ok2 := tree.FindPath(num2, path2)
+
+    if !ok1 || !ok2 {
+        return 0, false
+    }
+
+    for k, v := range path1 {
+        if k > len(path2)-1 {
+            //paht1长
+            return path1[k-1], true;
+        }
+
+        if v != path2[k] {
+            return path1[k-1], true;
+        }
+    }
+    return 0, false
+}
