@@ -1,10 +1,10 @@
 package main
 
 import (
-	"fmt"
-	"sort"
-	"strconv"
-	"strings"
+    "fmt"
+    "sort"
+    "strconv"
+    "strings"
 )
 
 type IntArr []int
@@ -17,6 +17,47 @@ func (s IntArr) Swap(i, j int) {
 }
 func (s IntArr) Less(i, j int) bool {
 	return s[i] < s[j]
+}
+
+//给一个随机数组，然后求出和为给定数字的任意两个成员
+func FindTwoNum(arr IntArr, sum int) (int, int, bool) {
+    //异常输入
+    if sum < 0 {
+        return 0, 0, false
+    }
+
+    length := len(arr)
+    //排序
+    sort.Sort(arr)
+
+    //滑动窗口
+    i := 0
+    j := length - 1
+    curr := arr[i] + arr[j]
+    for i < length && j < length {
+        if curr == sum {
+            return i, j , true
+        }
+
+        //左边界右移
+        if curr < sum {
+            i++
+            if i > (length - 1) {
+                break
+            }
+            curr = arr[i] + arr[j]
+        }
+
+        //右边界左移
+        if curr > sum {
+            j --
+            if j < 0 {
+                break
+            }
+            curr = arr[i] + arr[j]
+        }
+    }
+    return 0, 0, false
 }
 
 //给一个随机数组，然后求出和为给定数字的所有成员的组合
@@ -73,7 +114,7 @@ func FindNum(arr IntArr, sum int) ([][]int, bool) {
 		//右边界前进
 		if curr < sum {
 			j++
-			if j > 9 {
+			if j > (length-1) {
 				break
 			}
 			curr = curr + arr[j]
@@ -91,34 +132,37 @@ func FindNum(arr IntArr, sum int) ([][]int, bool) {
 
 func main() {
 	//异常输入
-	a := IntArr{9, 0, 8, 2, 6, 5, 4, 3, 7, 1}
-	fmt.Println(FindNum(a, -1))
+	//a := IntArr{9, 0, 8, 2, 6, 5, 4, 3, 7, 1}
+	//fmt.Println(FindNum(a, -1))
+    //
+	////常规
+	//a = IntArr{9, 0, 8, 2, 6, 5, 4, 3, 7, 1}
+	//fmt.Println(FindNum(a, 7))
+    //
+	////恰好第一个元素
+	//a = IntArr{9, 0, 8, 2, 6, 5, 4, 3, 7, 1}
+	//fmt.Println(FindNum(a, 0))
+    //
+	////恰好最后一元素
+	//a = IntArr{9, 0, 8, 2, 6, 5, 4, 3, 7, 1}
+	//fmt.Println(FindNum(a, 9))
+    //
+	////找不到
+	//a = IntArr{9, 0, 8, 2, 6, 5, 4, 3, 7, 1}
+	//fmt.Println(FindNum(a, 100))
+    //
+	////元素全部相同
+	//a = IntArr{7, 7, 7, 7, 7, 7, 7, 7, 7, 7}
+	//fmt.Println(FindNum(a, 7))
+    //
+	////元素全部相同，且符合多个元素相加
+	//a = IntArr{7, 7, 7, 7, 7, 7, 7, 7, 7, 7}
+	//fmt.Println(FindNum(a, 14))
+    //
+	////找不到
+	//a = IntArr{9, 0, 8, 2, 6, 5, 4, 3, 7, 1}
+	//fmt.Println(FindNum(a, 1))
 
-	//常规
-	a = IntArr{9, 0, 8, 2, 6, 5, 4, 3, 7, 1}
-	fmt.Println(FindNum(a, 7))
-
-	//恰好第一个元素
-	a = IntArr{9, 0, 8, 2, 6, 5, 4, 3, 7, 1}
-	fmt.Println(FindNum(a, 0))
-
-	//恰好最后一元素
-	a = IntArr{9, 0, 8, 2, 6, 5, 4, 3, 7, 1}
-	fmt.Println(FindNum(a, 9))
-
-	//找不到
-	a = IntArr{9, 0, 8, 2, 6, 5, 4, 3, 7, 1}
-	fmt.Println(FindNum(a, 100))
-
-	//元素全部相同
-	a = IntArr{7, 7, 7, 7, 7, 7, 7, 7, 7, 7}
-	fmt.Println(FindNum(a, 7))
-
-	//元素全部相同，且符合多个元素相加
-	a = IntArr{7, 7, 7, 7, 7, 7, 7, 7, 7, 7}
-	fmt.Println(FindNum(a, 14))
-
-	//找不到
-	a = IntArr{9, 0, 8, 2, 6, 5, 4, 3, 7, 1}
-	fmt.Println(FindNum(a, 1))
+    a := IntArr{9, 0, 8, 2, 6, 5, 4, 3, 7, 1}
+    fmt.Println(FindTwoNum(a, 8))
 }
