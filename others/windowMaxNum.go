@@ -103,7 +103,13 @@ func (wa *MaxWindowArr) FindWindowMax(arr []int, windowLen int) ([]int, bool)  {
     return ret, true
 }
 
+func Add(i int) int {
+    if i == 0 {
+        return 0
+    }
+    return i + Add(i-1)
+}
+
 func main() {
-    wa := &MaxWindowArr{}
-    fmt.Println(wa.FindWindowMax([]int{2, 3, 4, 2, 6, 2, 5, 1}, 3))
+    fmt.Println(Add(3))
 }

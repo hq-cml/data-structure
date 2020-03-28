@@ -161,7 +161,7 @@ func FindMaxSubString2(str string) (int, int) {
             j++
         }
     }
-
+    fmt.Println(str[index: index + maxCnt])
     return index, maxCnt
 }
 
@@ -250,3 +250,6 @@ func Filter(str string) string {
     }
 }
 
+func main() {
+    fmt.Println(FindMaxSubString2("arrab"))
+}

@@ -92,13 +92,13 @@ node* doubleSwap(node *head) {
     node *p2 = head->next;
     node *p3 = NULL;
     node *p4 = NULL;
-    head = p2;
+    head = p2;      //最终头节点是原来第二个节点
     while(p1 != NULL && p2 != NULL) {
         p3 = p2->next;
         p2->next = p1;
         p1->next = p3;
         if (p4 != NULL) {
-            p4->next = p2;
+            p4->next = p2;   //这个地方必须要更换前面已调整的最后一个节点的后继指针，否则就断了
         }
 
         if (p3 != NULL && p3->next != NULL) {
@@ -106,7 +106,7 @@ node* doubleSwap(node *head) {
             p1 = p3;
             p2 = p3->next;
         } else {
-            p1 = p2 = NULL;
+            p1 = p2 = NULL; //结束，只剩下0个或者1个节点
         }
     }
 
