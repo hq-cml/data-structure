@@ -363,3 +363,25 @@ func(tree *TreeNode) MirrorTree()  {
 
     return
 }
+
+//判断二叉树是否左右对称
+func(tree *TreeNode) CheckSymmetry() bool {
+    return symmetry(tree, tree)
+}
+
+func symmetry(tree1, tree2 *TreeNode) bool {
+    if tree1 == nil && tree2 == nil {
+        return true
+    }
+
+    if tree1 == nil || tree2 == nil {
+        return false
+    }
+
+    if tree1.Data != tree2.Data {
+        return false
+    }
+
+    return symmetry(tree1.Left, tree2.Right) &&
+        symmetry(tree1.Right, tree2.Left)
+}

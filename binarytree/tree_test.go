@@ -195,3 +195,42 @@ func TestMirrorTree(t *testing.T) {
     tree.MirrorTree()
     tree.PreOrder()
 }
+
+func TestCheckSymmetry(t *testing.T) {
+    tree1 := NewTree(8,
+        NewTree(6,
+            NewTree(5, nil, nil),
+            NewTree(7, nil, nil),
+        ),
+        NewTree(6,
+            NewTree(7, nil, nil),
+            NewTree(5, nil, nil),
+        ),
+    )
+
+    tree2 := NewTree(8,
+        NewTree(6,
+            NewTree(5, nil, nil),
+            NewTree(7, nil, nil),
+        ),
+        NewTree(9,
+            NewTree(7, nil, nil),
+            NewTree(5, nil, nil),
+        ),
+    )
+
+    tree3 := NewTree(8,
+        NewTree(7,
+            NewTree(7, nil, nil),
+            NewTree(7, nil, nil),
+        ),
+        NewTree(7,
+            NewTree(7, nil, nil),
+            nil,
+        ),
+    )
+
+    fmt.Println(tree1.CheckSymmetry())
+    fmt.Println(tree2.CheckSymmetry())
+    fmt.Println(tree3.CheckSymmetry())
+}
