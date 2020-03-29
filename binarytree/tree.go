@@ -301,3 +301,46 @@ func(tree *TreeNode) FindCommonParent(num1, num2 int) (int, bool) {
     }
     return 0, false
 }
+
+//判断给定树是否是子树
+func(tree *TreeNode) CheckSubTree(tree2 *TreeNode) bool {
+    if tree == nil && tree2 == nil {
+        return true
+    }
+
+    if tree2 == nil {
+        return true
+    }
+
+    ret := false
+    if tree.Data == tree2.Data {
+        ret = checkSubTree(tree, tree2)
+    }
+
+    if !ret {
+        ret = checkSubTree(tree.Left, tree2)
+    }
+
+    if !ret {
+        ret = checkSubTree(tree.Right, tree2)
+    }
+
+    return ret
+}
+
+func checkSubTree(tree1, tree2 *TreeNode) bool {
+    if tree2 == nil {
+        return true
+    }
+
+    if tree1 == nil {
+        return false
+    }
+
+    if tree1.Data != tree2.Data {
+        return false
+    }
+
+    return checkSubTree(tree1.Left, tree2.Left) &&
+             checkSubTree(tree1.Right, tree2.Right)
+}

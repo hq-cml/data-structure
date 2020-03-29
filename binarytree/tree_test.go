@@ -157,3 +157,22 @@ func TestChange2ChildNoRecursion(t *testing.T) {
     fmt.Println()
     tree.PostOrder()
 }
+
+func TestCheckSubTree(t *testing.T) {
+    tree1 := NewTree(8,
+        NewTree(8,
+            NewTree(9, nil, nil),
+            NewTree(2,
+                NewTree(4, nil, nil),
+                NewTree(7, nil, nil),
+            ),
+        ),
+        NewTree(7, nil, nil),
+    )
+    tree2 := NewTree(8,
+        NewTree(9, nil, nil),
+        NewTree(2, nil, nil),
+    )
+
+    fmt.Println(tree1.CheckSubTree(tree2))
+}

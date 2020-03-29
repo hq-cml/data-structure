@@ -45,6 +45,7 @@ func CheckSign(str string) bool {
         }
     }
 
+    //防止出现"{{{"这种case
     if mystack.Len() > 0 {
        return false
     } else {
