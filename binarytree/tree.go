@@ -344,3 +344,22 @@ func checkSubTree(tree1, tree2 *TreeNode) bool {
     return checkSubTree(tree1.Left, tree2.Left) &&
              checkSubTree(tree1.Right, tree2.Right)
 }
+
+//二叉树镜像
+func(tree *TreeNode) MirrorTree()  {
+    if tree == nil {
+        return
+    }
+    if tree.Right == nil && tree.Left == nil {
+        return
+    }
+
+    //左右互换
+    tree.Left, tree.Right = tree.Right, tree.Left
+
+    //左右各自递归变更
+    tree.Left.MirrorTree()
+    tree.Right.MirrorTree()
+
+    return
+}

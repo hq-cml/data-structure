@@ -176,3 +176,22 @@ func TestCheckSubTree(t *testing.T) {
 
     fmt.Println(tree1.CheckSubTree(tree2))
 }
+
+func TestMirrorTree(t *testing.T) {
+    tree := NewTree(8,
+        NewTree(6,
+            NewTree(5, nil, nil),
+            NewTree(7, nil, nil),
+        ),
+        NewTree(10,
+            NewTree(9, nil, nil),
+            NewTree(11, nil, nil),
+        ),
+    )
+
+
+    tree.PreOrder()
+    fmt.Println()
+    tree.MirrorTree()
+    tree.PreOrder()
+}
